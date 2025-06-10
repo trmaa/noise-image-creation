@@ -1,0 +1,5 @@
+#!/bin/bash
+
+g++ src/*.cpp -o noise -Iinclude/ -Llib/ -Wl,-rpath=./lib -lsfml-graphics -lsfml-window -lsfml-system
+
+./noise 1

@@ -1,0 +1,15 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-Iinclude/",
+      "-o",
+      "noise",
+      "src/main.cpp"
+    ],
+    "directory": "/home/pablo/noise_image_creator",
+    "file": "/home/pablo/noise_image_creator/src/main.cpp",
+    "output": "/home/pablo/noise_image_creator/noise"
+  }
+]
