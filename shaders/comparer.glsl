@@ -20,7 +20,7 @@ void main() {
 	float new_diff = length(new_col - target_col);
 
 	bool condition = new_diff < old_diff;
-	vec3 result = (condition) ? new_col : old_col;
+	vec3 result = (condition) ? new_col : old_col;//vec3(1) : vec3(0);//new_col : old_col;
 
 	out_color = vec4(result, 1.0);
 }

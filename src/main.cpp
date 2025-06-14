@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <cstdio>
+#include <cstdlib>
 #include <fstream>
 #include <string>
 
@@ -94,6 +95,13 @@ void download_ppm(const sf::Texture& tex, const std::string& path) {
 	}
 }
 
+void show_status(int iter, int iters) {
+	std::system("clear");
+    std::printf("iter %d/%d\n", iter, iters);
+	for (int i = 0; i < iters; i++) i <= iter ? std::printf("#") : std::printf(".");
+    std::printf("\n");
+}
+
 int main(int argc, char *argv[]) {
 	if (argc != 2) {
 		std::printf("usage: noise <iterations>\n");
@@ -119,7 +127,10 @@ int main(int argc, char *argv[]) {
 	}
 
 	for (int iter = 0; iter < iters; iter++) {
-		out_texture_new = noise_texture_from(out_texture_old);
+		show_status(iter, iters);
+
+		//out_texture_new = noise_texture_from(out_texture_old);
+		out_texture_new = noise_texture(size);
 
 		comparer.setUniform("old_texture", out_texture_old);
 		comparer.setUniform("new_texture", out_texture_new);
@@ -131,7 +142,29 @@ int main(int argc, char *argv[]) {
 		render_texture.draw(sprite, &comparer);
 		render_texture.display();
 
+		/*sf::Image result_img = render_texture.getTexture().copyToImage();
+
+		int white_count = 0;
+		int black_count = 0;
+
+		for (unsigned int y = 0; y < size.y; y++) {
+			for (unsigned int x = 0; x < size.x; x++) {
+				sf::Color c = result_img.getPixel(x, y);
+				if (c == sf::Color::White) {
+					white_count++;
+				} else if (c == sf::Color::Black) {
+					black_count++;
+				}
+			}
+		}
+
+		if (white_count > black_count) {
+			out_texture_old = out_texture_new;
+		}*/	
+
 		out_texture_old = render_texture.getTexture();
+
+		download_ppm(out_texture_old, "bin/result_img/0-" + std::to_string(iters) + ".ppm");
 	}
 
 	download_ppm(out_texture_old, "bin/result_img/0-" + std::to_string(iters) + ".ppm");
