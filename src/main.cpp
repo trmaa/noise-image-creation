@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
+#include <thread>
+#include <chrono>
 
 sf::Texture noise_texture(const sf::Vector2u& size) {
 	sf::Image img;
@@ -165,6 +167,8 @@ int main(int argc, char *argv[]) {
 		out_texture_old = render_texture.getTexture();
 
 		download_ppm(out_texture_old, "bin/result_img/0-" + std::to_string(iters) + ".ppm");
+
+		//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 
 	download_ppm(out_texture_old, "bin/result_img/0-" + std::to_string(iters) + ".ppm");
