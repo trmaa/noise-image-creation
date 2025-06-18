@@ -3,8 +3,8 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
-#include <thread>
-#include <chrono>
+//#include <thread>
+//#include <chrono>
 
 sf::Texture noise_texture(const sf::Vector2u& size) {
 	sf::Image img;
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
 
 	int iters = std::atoi(argv[1]);
 
-	sf::Texture in_texture = imagesrc_to_texture("bin/sample_img/negro.ppm");
+	sf::Texture in_texture = imagesrc_to_texture("bin/sample_img/0.ppm");
 
 	sf::Vector2u size = in_texture.getSize();
 
@@ -131,8 +131,8 @@ int main(int argc, char *argv[]) {
 	for (int iter = 0; iter < iters; iter++) {
 		show_status(iter, iters);
 
-		//out_texture_new = noise_texture_from(out_texture_old);
-		out_texture_new = noise_texture(size);
+		out_texture_new = noise_texture_from(out_texture_old);
+		//out_texture_new = noise_texture(size);
 
 		comparer.setUniform("old_texture", out_texture_old);
 		comparer.setUniform("new_texture", out_texture_new);
